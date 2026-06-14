@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+set -e
+
+link() {
+	local src="$1" dest="$2"
+
+	if [ -L "$dest" ]; then
+		ln -sfn "$src" "$dest"
+	elif [ -e "$dest" ]; then
+		echo "  Backing up $dest → ${dest}.bak"
+		mv "$dest" "${dest}.bak"
+		ln -sfn "$src" "$dest"
+	else
+		ln -sfn "$src" "$dest"
+	fi
+	echo "  $dest → $src"
+}
+
+echo "=== Linking configs ==="
+mkdir -p ~/.config
+mkdir -p ~/.config/systemd/user
+
+link ~/desktop/config/nvim ~/.config/nvim
+link ~/desktop/config/tmux ~/.config/tmux
+link ~/desktop/config/hypr ~/.config/hypr
+link ~/desktop/config/rofi ~/.config/rofi
+link ~/desktop/config/waybar ~/.config/waybar
+link ~/desktop/config/tmux-sessionizer ~/.config/tmux-sessionizer
+link ~/desktop/config/systemd/user/batsignal.service.d ~/.config/systemd/user/batsignal.service.d
+
+echo "=== Linking home dotfiles ==="
+link ~/desktop/home/.zshrc          ~/.zshrc
+link ~/desktop/home/.editorconfig   ~/.editorconfig
+link ~/desktop/home/.clang-format   ~/.clang-format
+
+echo "=== Done ==="

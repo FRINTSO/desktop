@@ -1,4 +1,8 @@
-source ~/.zsh_profile
+export EDITOR="nvim"
+export PATH="$HOME/desktop/bin:$HOME/.local/bin:$PATH"
+
+eval "$(keychain --eval --quiet ed25519_personal ed25519_work)"
+source <(fzf --zsh)
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -12,4 +16,15 @@ source /usr/share/cachyos-zsh-config/cachyos-config.zsh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+bindkey -s ^f "tmux-sessionizer\n"
+
 alias clipboard="wl-copy"
+# --- other: npm stuff ---
+export PATH="$HOME/.npm-global/bin:$PATH"
+
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Turso
+export PATH="$PATH:/home/wlm/.turso"

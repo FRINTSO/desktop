@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+URL="$1"
+
+if [[ -z "$URL" ]]; then
+	echo "Usage: await-site <url>"
+	exit 1
+fi
+
+if [[ "$URL" != http://* && "$URL" != https://* ]]; then
+	URL="https://$URL"
+fi
+
+check() {
+	curl -s --connect-timeout 5 --max-time 10 -o /dev/null -w "%{http_code}" "$URL"
+}
+
+echo "Waiting for $URL to become UP..."
+
+while true; do
+	STATUS=$(check)
+
+	if [[ "$STATUS" =~ ^2|3 ]]; then
+		notify-send "Site is UP" "$URL is reachable again"
+		echo "UP detected → exiting"
+		exit 0
+	fi
+
+	sleep 5
+done

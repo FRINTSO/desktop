@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+sudo pacman -S --noconfirm --needed base-devel
+if ! command -v paru &>/dev/null; then
+	git clone https://aur.archlinux.org/paru.git /tmp/paru-build
+	pushd /tmp/paru-build || exit 1
+	makepkg -si --noconfirm
+	popd || exit 1
+fi
+
+paru -S --noconfirm --needed \
+	just \
+	gimp \
+	tldr \
+	go \
+	fzf \
+	rofi-wayland \
+	btop \
+	bc \
+	stylua \
+	bun \
+	nodejs \
+	npm \
+	love \
+	ghostty \
+	hyprpaper \
+	hyprshot \
+	hyprlock \
+	ttf-font-awesome \
+	ttf-jetbrains-mono-nerd \
+	ttf-nerd-fonts-symbols \
+	waybar \
+	wlogout-git \
+	ffmpeg \
+	aalib \
+	ascii-image-converter-bin
+
+curl -sSfL https://get.tur.so/install.sh | bash

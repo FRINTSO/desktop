@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -e
+
+echo "Installing desktop packages..."
+sudo pacman -S --needed --noconfirm \
+	hyprland \
+	hyprpaper \
+	waybar \
+	rofi-wayland \
+	batsignal \
+	libnotify
+
+echo "Enabling batsignal..."
+systemctl --user enable --now batsignal.service

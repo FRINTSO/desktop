@@ -1,7 +1,30 @@
 #!/usr/bin/env bash
 set -e
 
-./scripts/neovim
-./scripts/dev
-./scripts/zsh
-./scripts/tmux
+link() {
+	local src="$1" dest="$2"
+
+	if [ -L "$dest" ]; then
+		ln -sfn "$src" "$dest"
+	elif [ -e "$dest" ]; then
+		echo "Backing up $dest → ${dest}.bak"
+		mv "$dest" "${dest}.bak"
+		ln -sfn "$src" "$dest"
+	else
+		ln -sfn "$src" "$dest"
+	fi
+}
+
+echo "=== Installing packages ==="
+./setup/desktop
+./setup/neovim
+./setup/dev
+./setup/zsh
+./setup/tmux
+./setup/ssh
+
+echo "=== Initializing submodules ==="
+git submodule update --init --recursive
+
+# --- linking ---
+./link

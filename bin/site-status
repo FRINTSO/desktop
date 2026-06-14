@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+URL="$1"
+
+if [[ -z "$URL" ]]; then
+	echo "Usage: site-status <url>"
+	exit 1
+fi
+
+if [[ "$URL" != http://* && "$URL" != https://* ]]; then
+	URL="https://$URL"
+fi
+
+STATE_DIR="$HOME/.cache/site-status"
+mkdir -p "$STATE_DIR"
+
+# create a safe filename from URL
+STATE_FILE="$STATE_DIR/$(echo "$URL" | sed 's/[^a-zA-Z0-9]/_/g')"
+
+check() {
+	curl -s --connect-timeout 5 --max-time 10 -o /dev/null -w "%{http_code}" "$URL"
+}
+
+STATUS=$(check)
+
+if [[ "$STATUS" =~ ^2|3 ]]; then
+	NEW="UP"
+else
+	NEW="DOWN"
+fi
+
+OLD=$(cat "$STATE_FILE" 2>/dev/null)
+
+if [[ "$NEW" != "$OLD" ]]; then
+	echo "$NEW" > "$STATE_FILE"
+
+	if [[ "$NEW" == "UP" ]]; then
+		notify-send "Site UP" "$URL is reachable again"
+	else
+		notify-send "Site DOWN" "$URL is not reachable"
+	fi
+fi

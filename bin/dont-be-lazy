@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+TARGET="${1:?Usage: $0 <process_name> [minutes]}"
+DURATION_MIN="${2:-60}"
+END_EPOCH=$(($(date +%s) + DURATION_MIN * 60))
+SCRIPT_PATH="$(realpath "$0")"
+
+trap '' SIGTERM SIGINT SIGHUP SIGQUIT SIGTSTP
+
+(
+	trap '' SIGTERM SIGINT SIGHUP SIGQUIT SIGTSTP
+	while [[ $(date +%s) -lt $END_EPOCH ]]; do
+		if ! kill -0 $$ 2>/dev/null; then
+			remaining=$(( (END_EPOCH - $(date +%s)) / 60 ))
+			[[ $remaining -le 0 ]] && exit 0
+			nohup bash "$SCRIPT_PATH" "$TARGET" "$remaining" &>/dev/null &
+			exit 0
+		fi
+		sleep 2
+	done
+) &
+disown $!
+
+while [[ $(date +%s) -lt $END_EPOCH ]]; do
+	pkill -f "$TARGET" 2>/dev/null || true
+	sleep 1
+done

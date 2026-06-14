@@ -1,0 +1,17 @@
+- Add a nvim dir tree listing button option for toggling dotfiles
+- Add a way to auto set neovim textwidth and colorcolumn to 72 when writing commits or readmes
+- Add base language formatting for my most used languages, .editorconfig
+- Fix hyprland monitor script, not having to tweak left monitor DP-3, DP-4, DP-5, each time I connect it
+- Rework neovim config so it is cleaner
+- Consolidate ~/.cache/nvim2 with the actual nvim submodule, and then compare this against ~/.config/nvim
+- Make bluetooth connection easier, than having to use bluetoothctl
+- Avoid having to write sudo systemctl restart NetworkManager, when connection drops
+
+
+What I want editing experience to be like:
+- I want to be able to configure special rules for special types, e.g. (72 line width on commit and readme)
+- I want to have some help with formatting, and I want to apply it differently depending on project
+- I don't want the formatter to completely change for example how I align stuff, e.g. comments, arrays, etc. for any language
+- I prefer to code with 8 tabs regardless of language, but I don't want that to impact the files themselves, I want to view a file differently from how it should be stored. How it should be stored should be according to formatting settings
+- I'm thinking about not auto format on save, but maybe format on keybind?
+- Maybe make my prefered fileview option a togglable state. So that I can view the file for what it is, and then i can do <leader>+SOMETHING which turns it into 8 indent tabs, etc?

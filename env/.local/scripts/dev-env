@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-(
-cd $HOME/desktop
-./dev-env
-hash -r
-)
