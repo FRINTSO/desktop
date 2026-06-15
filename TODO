@@ -1,9 +1,4 @@
 - Add a nvim dir tree listing button option for toggling dotfiles
-- Add a way to auto set neovim textwidth and colorcolumn to 72 when writing commits or readmes
-- Add base language formatting for my most used languages, .editorconfig
-- Fix hyprland monitor script, not having to tweak left monitor DP-3, DP-4, DP-5, each time I connect it
-- Rework neovim config so it is cleaner
-- Consolidate ~/.cache/nvim2 with the actual nvim submodule, and then compare this against ~/.config/nvim
 - Make bluetooth connection easier, than having to use bluetoothctl
 - Avoid having to write sudo systemctl restart NetworkManager, when connection drops
 
