@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+set -e
+source "$(dirname "$0")/lib.sh"
+
+# Compositor
+sudo pacman -Sy --noconfirm --needed \
+	hyprland \
+	hyprpaper \
+	hyprlock \
+	xdg-desktop-portal-hyprland \
+	xdg-desktop-portal-gtk
+
+# Bar, launcher, tools
+sudo pacman -Sy --noconfirm --needed \
+	waybar \
+	rofi-wayland \
+	brightnessctl \
+	pavucontrol \
+	ttf-font-awesome
+
+# Notifications and battery
+sudo pacman -Sy --noconfirm --needed \
+	mako \
+	libnotify \
+	batsignal
+
+# Audio
+sudo pacman -S --noconfirm --needed \
+	pipewire \
+	wireplumber \
+	pipewire-pulse \
+	pipewire-alsa
+
+# File manager
+sudo pacman -S --noconfirm --needed yazi
+
+# Browser
+sudo pacman -Sy --noconfirm --needed firefox
+
+# AUR packages
+paru -S --noconfirm --needed hyprshot
+
+# Link configs
+link config/hypr ~/.config/hypr
+link config/waybar ~/.config/waybar
+link config/rofi ~/.config/rofi
+
+# Services
+systemctl --user enable --now batsignal.service

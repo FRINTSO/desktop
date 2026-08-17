@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -e
+source "$(dirname "$0")/lib.sh"
+
+# Packages
+sudo pacman -Sy --noconfirm --needed \
+	git \
+	openssh \
+	git-delta \
+	github-cli
+
+# Git config
+link home/.gitconfig ~/.gitconfig
+link home/.gitmessage ~/.gitmessage
+
+if [[ ! -f ~/.ssh/id_ed25519 ]]; then
+	echo ""
+	echo "No SSH keys found. Run 'github-ssh' to set one up."
+fi

@@ -45,7 +45,6 @@
 #network,
 #cpu,
 #memory,
-#custom-lock,
 #custom-power {
 	background-color: #101010;
 	padding: 0.5rem 1rem;
@@ -112,11 +111,6 @@
 #custom-music {
 	color: #ca9ee6;
 	border-radius: 5px;
-}
-
-#custom-lock {
-	border-radius: 5px 0px 0px 5px;
-	color: #babbf1;
 }
 
 #custom-power {

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -e
+
+sudo pacman -S --noconfirm --needed base-devel git
+
+if ! command -v paru &>/dev/null; then
+	git clone https://aur.archlinux.org/paru.git /tmp/paru-build
+	pushd /tmp/paru-build || exit 1
+	makepkg -si --noconfirm
+	popd || exit 1
+fi

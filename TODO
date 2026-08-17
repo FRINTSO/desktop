@@ -10,3 +10,4 @@ What I want editing experience to be like:
 - I prefer to code with 8 tabs regardless of language, but I don't want that to impact the files themselves, I want to view a file differently from how it should be stored. How it should be stored should be according to formatting settings
 - I'm thinking about not auto format on save, but maybe format on keybind?
 - Maybe make my prefered fileview option a togglable state. So that I can view the file for what it is, and then i can do <leader>+SOMETHING which turns it into 8 indent tabs, etc?
+- I don't automatically get my git config

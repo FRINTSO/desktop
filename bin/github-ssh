@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -e
+
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh
+touch ~/.ssh/config
+chmod 600 ~/.ssh/config
+
+read -p "Host alias (e.g. github-personal): " host
+key="$HOME/.ssh/id_ed25519_${host##github-}"
+
+if [[ -f "$key" ]]; then
+	echo "Key already exists: $key"
+	echo "  $(cat "$key.pub")"
+	exit 0
+fi
+
+read -p "Email: " email
+ssh-keygen -t ed25519 -f "$key" -C "$email"
+
+if ! grep -q "Host $host" ~/.ssh/config 2>/dev/null; then
+	printf '\n%s\n' "Host $host" \
+		"  HostName github.com" \
+		"  User git" \
+		"  IdentityFile $key" >> ~/.ssh/config
+fi
+
+echo ""
+echo "Add to GitHub ($host):"
+echo "  $(cat "$key.pub")"

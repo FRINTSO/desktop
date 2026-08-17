@@ -1,5 +1,22 @@
 #!/usr/bin/env bash
+set -e
+source "$(dirname "$0")/lib.sh"
 
-sudo pacman -S --noconfirm neovim lua51 luarocks
+# Packages
+sudo pacman -S --noconfirm --needed \
+	neovim \
+	lua51 \
+	luarocks
 
 sudo luarocks install luacheck
+paru -S --noconfirm --needed stylua
+
+# Submodule
+git -C "$DOTFILES" submodule update --init --recursive config/nvim
+
+# Link
+link config/nvim ~/.config/nvim
+
+# Unsure if these should live here:
+link home/.clang-format ~/.clang-format
+link home/.editorconfig ~/.editorconfig

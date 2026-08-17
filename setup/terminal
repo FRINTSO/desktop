@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+set -e
+source "$(dirname "$0")/lib.sh"
+
+# Packages
+sudo pacman -Sy --noconfirm --needed \
+	zsh \
+	kitty \
+	keychain \
+	tmux \
+	fzf \
+	wl-clipboard \
+	zsh-autosuggestions \
+	zsh-syntax-highlighting \
+	zsh-history-substring-search \
+	zsh-completions \
+	ttf-jetbrains-mono-nerd \
+	ttf-nerd-fonts-symbols
+
+P10K_DIR="$HOME/.local/share/powerlevel10k"
+if [[ ! -d ~/.local/share/powerlevel10k ]]; then
+	git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$P10K_DIR"
+fi
+
+# Set zsh as default shell
+if [[ "$(basename "$SHELL")" != "zsh" ]]; then
+	hash -r
+	sudo chsh -s "$(which zsh)" "$USER"
+fi
+
+# Link configs
+link home/.zshrc ~/.zshrc
+link home/.zprofile ~/.zprofile
+link home/.p10k.zsh ~/.p10k.zsh
+link config/kitty ~/.config/kitty
+link config/tmux ~/.config/tmux
+link config/tmux-sessionizer ~/.config/tmux-sessionizer
