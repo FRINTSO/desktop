@@ -1,0 +1,83 @@
+# Could I have figured this out just by reading the diff?
+# So what?
+# Why does that matter?
+# Why would someone want this?
+#
+# ---
+#
+# The trap you're falling into: You're describing what the code does — "write
+# image paths", "supports only keeping map images." That's reading the diff
+# back to the reader.
+#
+# The shift: Ask yourself these questions, and actually try to answer them
+# before continuing reading:
+#
+# 1. Who benefits from this change, and what can they do now that they couldn't
+# before?
+#
+# 2. If a colleague asked "why did you make this change?", what would you say?
+# Not what you changed — why. What was the frustration or limitation that
+# motivated it?
+#
+# 3. What's the sentence that comes after "so that..."? As in: "I changed the
+# output format so that..." — finish that sentence. That's your effect.
+#
+# ---
+#
+# Fair point. Let's break it down.
+# **Step 1:** You have two effects. Pick the *primary* one — the one that
+# motivated the change. Was the main goal to make the output pipeable, or to
+# filter out non-map images? Which came first in your head when you started
+# writing the code?
+#
+# **Step 2:** Once you've picked the primary effect, write it as a short
+# sentence starting with a verb. Don't worry about length or formatting yet.
+# Just: *verb + what changes for the user*. Like how you'd tell a teammate in
+# Slack: "now you can..."
+#
+# **Step 3:** Trim that sentence to ~8-12 words and slap `reg-images:` in
+# front.
+#
+# **Step 4:** If the secondary effect is important enough, add it after a
+# semicolon. Start with Step 1 — which effect is the main one?
+#
+# ==========
+# --- Effect-Driven Commit Title ---
+#
+# Don't describe what the code does. That's reading the diff
+# back to the reader. Describe why it matters.
+#
+# Ask yourself:
+#   - Who benefits, and what can they do now that they couldn't?
+#   - A colleague asks "why did you make this change?" — what
+#     do you say? Not what you changed — why.
+#   - "I made this change so that..." — finish that sentence.
+#     That's your effect.
+#
+# Step 1: Write out the "so that" chain. Keep going until you
+#         hit the real reason. Pick the primary effect — the
+#         one that motivated the change.
+#
+# Step 2: Write it as a sentence starting with a verb.
+#         Like telling a teammate: "now you can..."
+#         Don't worry about length yet.
+#
+# Step 3: Trim to ~8-12 words, add scope prefix, target <60
+#         chars total.
+#
+# Step 4: If a secondary effect matters, add it after a
+#         semicolon. Same process: verb-first, trim preamble.
+#
+# --- Body ---
+#
+#   1. The problem before (what was the limitation)
+#   2. The solution (just enough mechanism to understand)
+#   3. Design decisions the reader needs without opening the
+#      diff
+#   Match the title's order. Stop when you're narrating the
+#   diff.
+#
+# --- The Test ---
+#
+#   Does the reader understand what changed for them without
+#   opening the diff? If yes, you're done.

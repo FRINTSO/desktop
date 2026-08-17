@@ -1,0 +1,55 @@
+[init]
+	defaultbranch = main
+[core]
+	editor = nvim
+	pager = delta
+	autocrlf = input
+[pull]
+	ff = true
+[merge]
+	conflictstyle = zdiff3
+[rerere]
+	enabled = true
+	autoupdate = true
+[fetch]
+	prune = true
+[rebase]
+	autoStash = true
+	committerDateIsAuthorDate = true
+[push]
+	default = current
+	autoSetupRemote = true
+[user]
+	email = william.malmgren.hanning@parkingaid.se
+	name = wille
+[color]
+	ui = auto
+[alias]
+	aliases = "!git config --get-regexp '^alias[.]' | sort -k1,1 | awk '$1!=\"alias.aliases\"{k=$1; v=$0; sub(/^[^ ]+ /,\"\",v); names[++n]=k; vals[k]=v} END{for(i=1;i<=n;i++){k=names[i]; seen[k]=1} for(i=1;i<=n;i++){k=names[i]; if(done[k]) continue; done[k]=1; name=k; sub(/^alias[.]/,\"\",name); if(length(name)>w) w=length(name)} for(i=1;i<=n;i++){k=names[i]; if(printd[k]) continue; printd[k]=1; name=k; sub(/^alias[.]/,\"\",name); printf \"%-*s  %s\\n\", w, name, vals[k]}}' | less -S"
+	st = status -sb
+	lg = log --oneline --graph --decorate
+	lgall = log --oneline --graph --decorate --all
+	unstage = restore --staged --
+	co = checkout
+	br = branch
+	cm = commit -m
+	last = log -1 HEAD --stat
+	ll = log --pretty=format:'%C(yellow)%h%Creset %C(cyan)%ad%Creset %C(green)%an%Creset %s' --date=short
+	uncommit = reset --soft HEAD~1
+	lol = log --pretty=oneline --abbrev-commit --graph
+	lg2 = log --all --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+	search-commits = log --all --grep
+	list-merged-branches = branch --merged
+	list-unmerged-branches = branch --no-merged
+	rebasekb = 
+	rebasekd = rebase --committer-date-is-author-date
+[interactive]
+	diffFilter = delta --color-only
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[commit]
+	template = /home/wlm/.gitmessage
